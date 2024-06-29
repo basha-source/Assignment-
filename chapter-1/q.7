@@ -1,0 +1,8 @@
+def find_unique_elements(nums):
+    unique_elements = set(nums)
+    return list(unique_elements)
+
+# Test cases
+print(find_unique_elements([3, 7, 3, 5, 2, 5, 9, 2]))    # Output: [2, 3, 5, 7, 9] (Order may vary)
+print(find_unique_elements([-1, 2, -1, 3, 2, -2]))      # Output: [-2, -1, 2, 3] (Order may vary)
+print(find_unique_elements([1000000, 999999, 1000000])) # Output: [999999, 1000000]
