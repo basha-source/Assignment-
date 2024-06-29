@@ -1,0 +1,12 @@
+def find_first_palindrome(words):
+    for word in words:
+        if word == word[::-1]:  # Check if the word is equal to its reverse
+            return word
+    return ""
+
+# Example usage:
+words1 = ["abc", "car", "ada", "racecar", "cool"]
+print(find_first_palindrome(words1))  # Output: "ada"
+
+words2 = ["notapalindrome", "racecar"]
+print(find_first_palindrome(words2))  # Output: "racecar"
