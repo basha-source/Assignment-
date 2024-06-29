@@ -1,0 +1,45 @@
+def gameOfLife(board):
+    m = len(board)
+    n = len(board[0]) if m > 0 else 0
+    
+    if m == 0 or n == 0:
+        return
+    
+    # Helper function to count live neighbors
+    def countLiveNeighbors(x, y):
+        directions = [(-1,-1), (-1,0), (-1,1), (0,-1), (0,1), (1,-1), (1,0), (1,1)]
+        live_count = 0
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < m and 0 <= ny < n:
+                if board[nx][ny] == 1 or board[nx][ny] == -1:
+                    live_count += 1
+        return live_count
+    
+    # Update the board to the next state
+    for i in range(m):
+        for j in range(n):
+            live_neighbors = countLiveNeighbors(i, j)
+            
+            # Rule 1 and Rule 3
+            if board[i][j] == 1 and (live_neighbors < 2 or live_neighbors > 3):
+                board[i][j] = -1  # -1 represents a live cell that dies
+            elif board[i][j] == 0 and live_neighbors == 3:
+                board[i][j] = 2   # 2 represents a dead cell that becomes live
+    
+    # Convert the board to the next state
+    for i in range(m):
+        for j in range(n):
+            if board[i][j] == -1:
+                board[i][j] = 0
+            elif board[i][j] == 2:
+                board[i][j] = 1
+    
+    return board
+
+# Test cases
+board1 = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+board2 = [[1,1],[1,0]]
+
+print(gameOfLife(board1))  # Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+print(gameOfLife(board2))  # Output: [[1,1],[1,1]]
