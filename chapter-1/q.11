@@ -1,0 +1,25 @@
+def findPaths(m, n, N, i, j):
+    # Initialize dp array
+    dp = [[[0] * n for _ in range(m)] for _ in range(N + 1)]
+    dp[0][i][j] = 1  # Base case: starting position
+    
+    # Directions for movement: up, down, left, right
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    
+    # Fill dp table
+    for k in range(1, N + 1):  # Steps from 1 to N
+        for x in range(m):
+            for y in range(n):
+                for dx, dy in directions:
+                    nx, ny = x + dx, y + dy
+                    if nx < 0 or nx >= m or ny < 0 or ny >= n:
+                        dp[k][x][y] += 1  # Out of boundary
+                    else:
+                        dp[k][x][y] += dp[k - 1][nx][ny]
+    
+    # Return number of ways to move out of boundary in exactly N steps from (i, j)
+    return dp[N][i][j]
+
+# Test cases
+print(findPaths(2, 2, 2, 0, 0))  # Output: 6
+print(findPaths(1, 3, 3, 0, 1))  # Output: 12
