@@ -1,0 +1,46 @@
+def merge_sort(arr):
+ if len(arr) > 1:
+ mid = len(arr) // 2
+ L = arr[:mid]
+ R = arr[mid:]
+ # Sorting the first half
+ left_comparisons = merge_sort(L)
+ 
+ # Sorting the second half
+ right_comparisons = merge_sort(R)
+ i = j = k = 0
+ comparisons = left_comparisons + right_comparisons
+ while i < len(L) and j < len(R):
+ comparisons += 1
+ if L[i] < R[j]:
+ arr[k] = L[i]
+ i += 1
+ else:
+ arr[k] = R[j]
+ j += 1
+ k += 1
+ # Checking if any element was left
+ while i < len(L):
+ arr[k] = L[i]
+ i += 1
+ k += 1
+ while j < len(R):
+ arr[k] = R[j]
+ j += 1
+ k += 1
+ return comparisons
+ else:
+ return 0
+def merge_sort_with_comparisons(arr):
+ comparisons = merge_sort(arr)
+ return arr, comparisons
+# Test Cases
+test_arrays = [
+ [12, 4, 78, 23, 45, 67, 89, 1],
+ [38, 27, 43, 3, 9, 82, 10]
+]
+for test_array in test_arrays:
+ sorted_array, comparisons = merge_sort_with_comparisons(test_array.copy())
+ print(f"Input Array: {test_array}")
+ print(f"Sorted Array: {sorted_array}")
+ print(f"Number of Comparisons: {comparisons}\n")
